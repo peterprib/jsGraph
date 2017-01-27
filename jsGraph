@@ -1,0 +1,53 @@
+Function Vertex(graph,id,n) {
+	this.graph=graph;
+	this.id=id;
+	this.edgesRight=[];
+	this.edgesLeft=[];
+	this.node=n;
+}
+Vertex.protype.forEachNeighbor=function(f) {
+		for(var e in this.edgesRight) 
+			f.call(e.left);
+		for(var e in this.edgesLeft) 
+			f.call(e.right);
+	};
+Vertex.protype.in=function(a) {
+		for(var v in a) if(v.equals(a[v])) return true;
+		return false
+	};
+Vertex.protype.equals=function(v) { return this.id==v.id);};
+Vertex.protype.newEdgeLeft=function(e) { this.edgesLeft.push(e);};
+Vertex.protype.newEdgeRight=function(e) { this.edgesRight.push(e);};
+Function Edge(graph,l,r,d) {
+	this.graph=graph;
+	this.left=l;
+	this.right=r;
+	this.distance=d;
+	l.newEdge(this);
+	r.newEdge(this);
+}
+Edge.protype.getDistance=function() {return this.distance};
+Edge.protype.setDistance=function(d) {this.distance=d};
+
+Graph function() {
+	this.vertices=[];
+	this.edges=[];
+}
+Graph.protype.addVertex= function(v) {
+	this.vertices.push(new Vertex(this,v.id));
+}
+Graph.protype.addEdge= function(l,r) {
+	this.edges.push(new Edge(this,l,r));
+}
+Graph.protype.shortestPath = function(v1,v2,graph,edges,vertices) {
+	if(graph==null) var graph=this,edges=[],vertices=[v1];
+  var min;
+	v1.forEachNeighbor(function (v) {
+			if (v.in(vertices)) return;
+      var sp=graph.shortestPath(v,v2,graph,edges,vertices);
+      if(sp==null) return;
+      if (min==null) min=sp;
+      else if(min.dist<sp.dist) min=sp.dist;
+		});
+	return min;
+}
