@@ -1,6 +1,6 @@
 Function Vertex(graph,id,n) {
 	this.graph=graph;
-	this.id=id;
+//	this.id=id;
 	this.edgesRight=[];
 	this.edgesLeft=[];
 	this.node=n;
@@ -18,11 +18,11 @@ Vertex.protype.in=function(a) {
 Vertex.protype.equals=function(v) { return this.id==v.id);};
 Vertex.protype.newEdgeLeft=function(e) { this.edgesLeft.push(e);};
 Vertex.protype.newEdgeRight=function(e) { this.edgesRight.push(e);};
-Function Edge(graph,l,r,d) {
+Function Edge(graph,l,r,f) {
 	this.graph=graph;
 	this.left=l;
 	this.right=r;
-	this.distance=d;
+	this.factor=f||1;
 	l.newEdge(this);
 	r.newEdge(this);
 }
@@ -32,22 +32,35 @@ Edge.protype.setDistance=function(d) {this.distance=d};
 Graph function() {
 	this.vertices=[];
 	this.edges=[];
+//	this.lastId=0;
 }
 Graph.protype.addVertex= function(v) {
-	this.vertices.push(new Vertex(this,v.id));
+		this.vertices.push(new Vertex(this,v));
+		this.vertices.push(new Vertex(this,v);
+	};
+Graph.protype.addEdge= function(l,r,f) {
+		this.edges.push(new Edge(this,l,r,f));
+	};
+/*
+while find minimum factor path
+	if path been explored return cost
+	place min on path explored
+	get shortest path from it to target
+	change its cost
 }
-Graph.protype.addEdge= function(l,r) {
-	this.edges.push(new Edge(this,l,r));
-}
+*/
+
 Graph.protype.shortestPath = function(v1,v2,graph,edges,vertices) {
-	if(graph==null) var graph=this,edges=[],vertices=[v1];
-  var min;
-	v1.forEachNeighbor(function (v) {
-			if (v.in(vertices)) return;
-      var sp=graph.shortestPath(v,v2,graph,edges,vertices);
-      if(sp==null) return;
-      if (min==null) min=sp;
-      else if(min.dist<sp.dist) min=sp.dist;
-		});
+		if(graph==null) var graph=this,path=v1,vertices=[v1];
+		var edges=[];
+		v1.forEachNeighbor(function (e) {}
+		while (untestPath is smaller fact)
+				if (v.in(vertices)) return;
+      				var sp=graph.shortestPath(v,v2,graph,edges,vertices);
+      				if(sp==null) return;
+      				if (min==null) min=sp;
+				else if(min.dist<sp.dist) min=sp.dist;
+			});
+		}
 	return min;
-}
+	};
